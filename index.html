@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NinjaPizza — Pizza that strikes fast</title>
+  <meta name="description" content="Wood-fired pizza, sliced in silence and delivered at ninja speed." />
+  <meta name="theme-color" content="#E1473A" />
+  <link rel="icon" href="./favicon.svg" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="nav-logo" href="#top" aria-label="NinjaPizza home" data-mark data-word></a>
+    <nav class="nav-links" aria-label="Main">
+      <a class="pill" href="#story">About</a>
+      <a class="pill" href="#menu">Pizzas</a>
+      <a class="pill" href="#delivery">Delivery</a>
+      <span class="pill-plus" aria-hidden="true">+</span>
+    </nav>
+    <div class="nav-right">
+      <button class="cart" id="cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span class="cart-n" id="cartN">2</span>
+      </button>
+      <a class="btn-red" href="#order">Order now</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 1 + 2: hero that turns into the red story panel -->
+    <section class="story" id="story">
+      <div class="stage">
+        <div class="red-panel" id="redPanel">
+          <div class="red-top"></div>
+          <div class="red-copy">
+            <h2 class="quote-title">‘NINJA’</h2>
+            <div class="red-mascot"><span>20</span><div data-mark></div><span>26</span></div>
+            <p class="red-lead">Pizza that strikes fast<br />and leaves no crumbs</p>
+            <p class="tiny">At <b>NinjaPizza</b> we stretch every base by hand<br />and fire it at <b>450°C</b> for ninety seconds flat.</p>
+          </div>
+          <div class="glass-wrap" id="glass"></div>
+        </div>
+
+        <div class="hero" id="hero">
+          <h1 class="hero-word" id="heroWord"></h1>
+          <div class="hero-sticker" id="heroSticker"></div>
+          <p class="hero-tag">Wood-fired pizza, delivered<br />at ninja speed.</p>
+          <div class="hero-app">
+            <p class="tiny">At <b>NinjaPizza</b> we slice in silence,<br />with the <b>freshest</b> dough, stretched daily<br />for every single order.</p>
+          </div>
+          <div class="leaf l1" data-leaf></div>
+          <div class="leaf l2" data-leaf></div>
+          <div class="leaf l3" data-leaf></div>
+        </div>
+
+        <!-- one pizza travels from the hero plate to the red panel -->
+        <div class="pz-pos" id="pzPos">
+          <div class="pz-tilt" id="pzTilt">
+            <div class="pz-spin" id="pzSpin">
+              <div class="pz-plate" id="pzPlate"></div>
+              <div class="pz-layer pz-rest" id="pzRest"></div>
+              <div class="pz-slice-shadow" id="pzShadow"></div>
+              <div class="pz-strands" id="pzStrands"></div>
+              <div class="pz-layer pz-slice" id="pzSlice"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3: menu -->
+    <section class="menu" id="menu">
+      <div class="menu-head">
+        <h2 class="big-title">
+          <span class="row"><span class="red">BEST</span><span class="inline-pz" id="inlinePz"></span><span>OF</span></span>
+          <span class="row">THE BEST</span>
+        </h2>
+        <div class="menu-side">
+          <div class="tags"><span class="pill">Vouchers</span><span class="pill">Delivery in 30 minutes</span></div>
+        </div>
+      </div>
+      <p class="menu-copy">Every pie is stretched by hand, fired in under ninety seconds and boxed before the cheese has time to settle. Four classics, zero shortcuts.</p>
+      <div class="cards" id="cards"></div>
+      <a class="see-all" href="#menu">See all pizzas</a>
+    </section>
+
+    <!-- 4: cutter + stickers -->
+    <section class="share" id="delivery">
+      <div class="share-visual">
+        <div class="photo" id="photo">
+          <div class="photo-scene">
+            <div class="photo-board" data-board></div>
+            <div class="photo-pz" id="photoPz"></div>
+            <svg class="cut-line" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><line id="cutLine" x1="4" y1="5" x2="96" y2="5" pathLength="1" /></svg>
+          </div>
+          <div class="cutter-wrap" id="cutter"></div>
+        </div>
+        <div class="photo-shadow"></div>
+        <div class="stickers" id="stickers"></div>
+      </div>
+      <div class="share-copy">
+        <p class="eyebrow">Pizza for the whole clan</p>
+        <h2 class="big-title sm">
+          <span class="row">SLICE IT</span>
+          <span class="row"><span class="red">NINJA</span> STYLE</span>
+          <span class="row">SHARE IT ALL</span>
+        </h2>
+        <p class="body-copy">Our pizzas are made with fresh mozzarella, slow San Marzano sauce and dough that rests for 48 hours. Whether you want a classic Margherita or something with a little more bite, we have your back.</p>
+        <a class="btn-ink" href="#order">Order now</a>
+      </div>
+    </section>
+
+    <!-- 5: marquee, flying box, flyers, reviews -->
+    <section class="dark" id="dark">
+      <div class="stage dark-stage">
+        <div class="marquee" id="marquee"></div>
+        <div class="fly-pz fp1" id="fly1"></div>
+        <div class="fly-pz fp2" id="fly2"></div>
+        <div class="box-plate" id="boxPlate"></div>
+        <div class="box-pos" id="boxPos"><div class="box" id="box"></div></div>
+        <div class="flyers" id="flyers"></div>
+        <div class="reviews" id="reviews"><div class="reviews-track" id="reviewsTrack"></div></div>
+      </div>
+    </section>
+
+    <!-- 6: finale -->
+    <section class="finale" id="order">
+      <div class="stage finale-stage">
+        <div class="hole-wrap" id="holeWrap">
+          <div class="hole"></div>
+          <div class="rise-clip"><div class="riser" id="riser"></div></div>
+        </div>
+        <div class="finale-word" id="finaleWord"></div>
+        <div class="finale-copy" id="finaleCopy">
+          <h2 class="big-title md">SILENT KITCHEN. LOUD FLAVOUR.</h2>
+          <p class="body-copy">We believe every pizza deserves a blistered crust and a cheese pull worth filming. Order tonight and it lands at your door before you finish choosing a movie.</p>
+          <a class="btn-red" href="#order">Order now</a>
+        </div>
+        <footer class="footer">
+          <div class="f-brand"><div class="f-logo" data-mark data-word></div><p>Thanks for choosing <b>NinjaPizza</b><br />for your late-night missions.</p></div>
+          <p>Follow us for <b>secret drops</b><br />and new flavours.</p>
+          <div class="socials">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="16.8" cy="7.2" r="1.1" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 20v-7h2.3l.4-2.8h-2.7V8.5c0-.8.3-1.4 1.4-1.4h1.4V4.6c-.3 0-1.1-.1-2.1-.1-2.1 0-3.5 1.3-3.5 3.6v2.1H8.4V13h2.3v7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a>
+            <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M14 4v10.5a3.5 3.5 0 1 1-3-3.46M14 4c.4 2.2 1.9 3.6 4 3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+            <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a>
+          </div>
+          <p>Questions or feedback?<br />Write to <a href="mailto:hello@ninjapizza.com"><b>hello@ninjapizza.com</b></a>.</p>
+          <p class="copy">© 2026 NinjaPizza. All rights reserved.</p>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
