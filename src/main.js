@@ -8,7 +8,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { markSVG, wordSVG, wordLettersSVG } from './logo.js';
-import { pizzaSVG, flatPizzaSVG, FLAT, strandsSVG, glassSVG, stickerSVG, popularSVG, cutterSVG, boardSVG, basil, rng, RECIPES } from './art.js';
+import { pizzaSVG, flatPizzaSVG, FLAT, strandsSVG, glassSVG, stickerSVG, popularSVG, cutterSVG, basil, rng, RECIPES } from './art.js';
 
 gsap.registerPlugin(ScrollTrigger);
 const $ = (s, r = document) => r.querySelector(s);
@@ -27,8 +27,8 @@ $$('[data-leaf]').forEach((el, i) => {
 // hero pizza: flat vector style; stacked crust silhouettes under the top give it a dough wall in 3D
 const HERO_SEED = 7, EDGE_LAYERS = 12;
 const mix = (a, b, t) => '#' + [1, 3, 5].map((i) => Math.round(parseInt(a.substr(i, 2), 16) * (1 - t) + parseInt(b.substr(i, 2), 16) * t).toString(16).padStart(2, '0')).join('');
-const edges = (mode) => Array.from({ length: EDGE_LAYERS }, (_, k) =>
-  `<div class="pz-edge" style="--k:${k + 1}">${flatPizzaSVG({ seed: HERO_SEED, mode, edge: mix(FLAT.side[0], FLAT.side[1], k / (EDGE_LAYERS - 1)) })}</div>`).join('');
+const edges = (mode, seed = HERO_SEED) => Array.from({ length: EDGE_LAYERS }, (_, k) =>
+  `<div class="pz-edge" style="--k:${k + 1}">${flatPizzaSVG({ seed, mode, edge: mix(FLAT.side[0], FLAT.side[1], k / (EDGE_LAYERS - 1)) })}</div>`).join('');
 $('#pzRest').innerHTML = edges('rest') + flatPizzaSVG({ seed: HERO_SEED, mode: 'rest', cls: 'pz-top' });
 $('#pzSlice').innerHTML = edges('slice') + flatPizzaSVG({ seed: HERO_SEED, mode: 'slice', cls: 'pz-top' });
 const strands = $('#pzStrands');
@@ -56,8 +56,8 @@ $('#cards').innerHTML = PIZZAS.map((p, i) => `
     <button class="add">Add to cart · <b>$${p.price}</b></button>
   </article>`).join('');
 
-$('[data-board]').innerHTML = boardSVG();
-$('#photoPz').innerHTML = pizzaSVG({ seed: 31, recipe: RECIPES.diavola, cuts: 0 });
+// same flat 3D pizza as the hero, uncut: the cutter makes the cut on scroll
+$('#photoPz').innerHTML = edges('whole', 19) + flatPizzaSVG({ seed: 19, cuts: false, cls: 'pz-top' });
 $('#cutter').innerHTML = cutterSVG();
 $('#stickers').innerHTML =
   stickerSVG({ text: 'TAKE A SLICE • TAKE A SLICE • ', bg: '#F2B33D' }) +
@@ -140,6 +140,8 @@ function layout() {
   }
   pzPos.style.setProperty('--S', `${S}px`);
   pzPos.style.setProperty('--T', `${S * 0.06}px`);
+  const scene = $('.photo-scene');
+  scene.style.setProperty('--T', `${scene.offsetWidth * 0.055}px`);
 }
 
 function applyPz() {
@@ -255,7 +257,7 @@ $('#cards').addEventListener('click', (e) => {
 rowsIn($('#delivery'));
 gsap.from('.share-copy .eyebrow, .share-copy .body-copy, .share-copy .btn-ink', { y: 30, opacity: 0, duration: 1, stagger: 0.12, ease: 'expo.out', scrollTrigger: { trigger: '.share-copy', start: 'top 75%' } });
 gsap.from('.stickers .sticker', { scale: 0, rotate: -140, duration: 1.1, stagger: 0.15, ease: 'back.out(2.2)', scrollTrigger: { trigger: '#photo', start: 'top 70%' } });
-gsap.fromTo('#photo', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: '#photo', start: 'top 85%' } });
+gsap.from('#photoPz, .photo-shadow', { scale: 0.3, rotate: -120, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '#photo', start: 'top 80%' } });
 {
   const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '#photo', start: 'top 65%', end: 'bottom 25%', scrub: 0.6 } });
   const photo = $('#photo'), cutter = $('#cutter');

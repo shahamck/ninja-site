@@ -170,7 +170,7 @@ function flatLeaf(x, y, len, rot) {
     <path d="M${f(len * 0.04)},0 L${f(len * 0.9)},0" stroke="#7CC768" stroke-width="${f(len * 0.035)}" stroke-linecap="round" opacity=".7"/></g>`;
 }
 
-function flatBody(seed) {
+function flatBody(seed, cuts = true) {
   const rnd = rng(seed);
   const crust = blob(234, 26, 0.045, rnd);
   let s = `<path d="${crust}" fill="${FLAT.crust}"/>`;
@@ -197,7 +197,7 @@ function flatBody(seed) {
     s += `<circle cx="${f(Math.cos(a) * r)}" cy="${f(Math.sin(a) * r)}" r="${f(1.8 + rnd() * 1.4)}" fill="${i % 2 ? '#FFFFFF' : '#5E5E4A'}" opacity=".9"/>`;
   }
   // eight even cuts, on the same angles as the slice wedge
-  for (let i = 0; i < 8; i++) {
+  if (cuts) for (let i = 0; i < 8; i++) {
     const a = (i / 8) * TAU - Math.PI / 2 - Math.PI / 8, x = f(Math.cos(a) * 221), y = f(Math.sin(a) * 221);
     s += `<line x1="0" y1="0" x2="${x}" y2="${y}" stroke="#B9661E" stroke-width="4" stroke-linecap="round" opacity=".55"/><line x1="0" y1="0" x2="${x}" y2="${y}" stroke="#FFF4C2" stroke-width="1.2" opacity=".55" transform="translate(1.6,1.6)"/>`;
   }
@@ -213,15 +213,13 @@ function wedgeClip(id, mode, cuts = 8) {
 }
 
 // edge: a colour -> only the crust silhouette in that colour (stacked to give the pizza its thickness)
-export function flatPizzaSVG({ seed = 7, mode = 'whole', edge = null, cls = '' } = {}) {
+export function flatPizzaSVG({ seed = 7, mode = 'whole', edge = null, cuts = true, cls = '' } = {}) {
   const id = `fp${++uid}`;
   const clip = wedgeClip(id, mode);
-  const { crust, body } = flatBody(seed);
+  const { crust, body } = flatBody(seed, cuts);
   let inner = body;
   if (edge) {
     inner = `<path d="${crust}" fill="${edge}"/>`;
-    const rnd = rng(seed * 3 + 1);
-    for (let i = 0; i < 10; i++) { const a = rnd() * TAU, r = 222 + rnd() * 10; inner += `<circle cx="${f(Math.cos(a) * r)}" cy="${f(Math.sin(a) * r)}" r="${f(2 + rnd() * 1.6)}" fill="#8F4614" opacity=".5"/>`; }
   }
   return `<svg class="pizza ${cls}" viewBox="-250 -250 500 500" aria-hidden="true">${clip}<g ${clip ? `clip-path="url(#${id}clip)"` : ''}>${inner}</g></svg>`;
 }
